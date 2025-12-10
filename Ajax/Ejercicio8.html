@@ -20,7 +20,12 @@
                     if (object.readyState == 4 &&
                         object.status == 200) {
                         var jsonData = JSON.parse(object.responseText);
-                        objeto.innerHTML = "<pre>" + JSON.stringify(jsonData, null, 2) + "</pre>";
+                        var salida = "<ul>";
+                        for (var i = 0; i < jsonData.alumnos.length; i++) {
+                            salida += "<li>" + jsonData.alumnos[i].nombre + ", " + jsonData.alumnos[i].edad + ", " + jsonData.alumnos[i].curso + "</li>";
+                        }
+                        salida += "</ul>";
+                        objeto.innerHTML = salida;
                     }
                 }
                 object.send(null);

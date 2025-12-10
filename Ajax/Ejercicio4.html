@@ -19,8 +19,9 @@
                 object.onreadystatechange = function () {
                     if (object.readyState == 4 &&
                         object.status == 200) {
-                        var xmlText = object.responseText;
-                        div.innerHTML = "<pre>" + xmlText.replace(/</g, "&lt;").replace(/>/g, "&gt;") + "</pre>";
+                        var xmlDoc = object.responseXML;
+                        var mensaje = xmlDoc.getElementsByTagName("Mati")[0].textContent;
+                        div.innerHTML = "Mensaje: " + mensaje;
                     }
                 }
                 object.send(null);
