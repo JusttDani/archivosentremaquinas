@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Ejercicio 6 - PHP</title>
+    <script type="text/javascript">
+        var object = false;
+
+        if (window.XMLHttpRequest) {
+            object = new XMLHttpRequest();
+        } else if (window.ActiveXObject) {
+            object = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+
+        function ejecutarPHP(archivo, idDiv) {
+            if (object) {
+                var objeto = document.getElementById(idDiv);
+                object.open("GET", archivo);
+                object.onreadystatechange = function () {
+                    if (object.readyState == 4 &&
+                        object.status == 200) {
+                        objeto.innerHTML = object.responseText;
+                    }
+                }
+                object.send(null);
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <h1>Ejercicio 6 - Ejecutar PHP</h1>
+    <form>
+        <input type="button" value="Mostrar fecha del sistema" onclick="ejecutarPHP('fecha.php','contenedor')">
+    </form>
+    <div id="contenedor" style="background-color:#99FF66;">
+        <p> Pulsa para obtener la fecha del servidor</p>
+    </div>
+</body>
+
+</html>

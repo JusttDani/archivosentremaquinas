@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Ejercicio 9 - Loading AJAX</title>
+    <script type="text/javascript">
+        var object = false;
+
+        if (window.XMLHttpRequest) {
+            object = new XMLHttpRequest();
+        } else if (window.ActiveXObject) {
+            object = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+
+        function cargarDatos(archivo, idDiv) {
+            if (object) {
+                var objeto = document.getElementById(idDiv);
+                var loading = document.getElementById('textoCarga');
+
+                loading.style.display = 'block';
+                objeto.innerHTML = '';
+
+                object.open("GET", archivo);
+                object.onreadystatechange = function () {
+                    if (object.readyState == 4) {
+                        loading.style.display = 'none';
+
+                        if (object.status == 200) {
+                            objeto.innerHTML = object.responseText;
+                        } else {
+                            objeto.innerHTML = '<p style="color:red;">Error al cargar los datos</p>';
+                        }
+                    }
+                }
+                object.send(null);
+            }
+        }
+    </script>
+    <style>
+        #textoCarga {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .carga {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #3498db;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Ejercicio 9 - Indicador de Carga AJAX</h1>
+    <form>
+        <input type="button" value="Cargar datos del servidor" onclick="cargarDatos('datosConCarga.php','contenedor')">
+    </form>
+
+    <div id="textoCarga">
+        <div class="carga"></div>
+        <p>Cargando datos, por favor espere...</p>
+    </div>
+
+    <div id="contenedor" style="background-color:#99FF66; padding:10px; margin-top:20px;">
+        <p>Pulsa para cargar datos</p>
+    </div>
+</body>
+
+</html>

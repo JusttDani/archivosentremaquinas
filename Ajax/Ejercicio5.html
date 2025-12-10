@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Ejercicio 5 - Ejecutar JavaScript</title>
+    <script type="text/javascript">
+        var object = false;
+
+        if (window.XMLHttpRequest) {
+            object = new XMLHttpRequest();
+        } else if (window.ActiveXObject) {
+            object = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+
+        function ejecutarJS(archivo) {
+            if (object) {
+                object.open("GET", archivo);
+                object.onreadystatechange = function () {
+                    if (object.readyState == 4 &&
+                        object.status == 200) {
+                        eval(object.responseText);
+                    }
+                }
+                object.send(null);
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <h1>Ejercicio 5 - Ejecutar Fichero JavaScript</h1>
+    <form>
+        <input type="button" value="Ejecutar JavaScript " onclick="ejecutarJS('extension.js')">
+    </form>
+    <div id="resultado" style="background-color:#99FF66;">
+        <p>Pulsa para ejecutar el JavaScript</p>
+    </div>
+</body>
+
+</html>

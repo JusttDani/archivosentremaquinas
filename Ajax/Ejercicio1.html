@@ -1,0 +1,38 @@
+<html>
+
+<head>
+    <title>Actividad 1</title>
+    <script type="text/javascript">
+        var object = false;
+        if (window.XMLHttpRequest) {
+            object = new XMLHttpRequest();
+        } else if (window.ActiveXObject) {
+            object = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        function sacardatos(datos, idDiv) {
+            if (object) {
+                var objeto = document.getElementById(idDiv);
+                object.open("GET", datos);
+                object.onreadystatechange = function () {
+                    if (object.readyState == 4 &&
+                        object.status == 200) {
+                        objeto.innerHTML = object.responseText;
+                    }
+                }
+                object.send(null);
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <H1>Actividad 1</H1>
+    <form>
+        <input type="button" value="Mostrar Fichero" onclick="sacardatos('Ejercicio1.txt','contenedor')">
+    </form>
+    <div id="contenedor" style="background-color:#99FF66;">
+        <p> Mostrar&aacute; contenido del fichero </p>
+    </div>
+</body>
+
+</html>

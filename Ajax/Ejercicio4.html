@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Ejercicio 4 - Mostrar XML</title>
+    <script type="text/javascript">
+        var object = false;
+
+        if (window.XMLHttpRequest) {
+            object = new XMLHttpRequest();
+        } else if (window.ActiveXObject) {
+            object = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+
+        function mostrarXML(archivo, idDiv) {
+            if (object) {
+                var div = document.getElementById(idDiv);
+                object.open("GET", archivo);
+                object.onreadystatechange = function () {
+                    if (object.readyState == 4 &&
+                        object.status == 200) {
+                        var xmlText = object.responseText;
+                        div.innerHTML = "<pre>" + xmlText.replace(/</g, "&lt;").replace(/>/g, "&gt;") + "</pre>";
+                    }
+                }
+                object.send(null);
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <h1>Ejercicio 4 - Mostrar Fichero XML</h1>
+    <form>
+        <input type="button" value="Mostrar fichero XML" onclick="mostrarXML('datos.xml','contenedor')">
+    </form>
+    <div id="contenedor" style="background-color:#99FF66; padding:10px; margin-top:20px;">
+        <p>Pulsa para mostrar el fichero XML</p>
+    </div>
+</body>
+
+</html>

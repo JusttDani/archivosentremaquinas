@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Ejercicio 2 - Enlaces Asíncronos</title>
+    <script type="text/javascript">
+        var object = false;
+        if (window.XMLHttpRequest) {
+            object = new XMLHttpRequest();
+        } else if (window.ActiveXObject) {
+            object = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+
+        function cargarPagina(pagina, idDiv) {
+            if (object) {
+                var objeto = document.getElementById(idDiv);
+                object.open("GET", pagina);
+                object.onreadystatechange = function () {
+                    if (object.readyState == 4 &&
+                        object.status == 200) {
+                        objeto.innerHTML = object.responseText;
+                    }
+                }
+                object.send(null);
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <h1>Ejercicio 2 - Navegación Asíncrona</h1>
+    <nav>
+        <a href="#" onclick="cargarPagina('inicio.html','contenedor'); return false;">Inicio</a> |
+        <a href="#" onclick="cargarPagina('inicio2.html','contenedor'); return false;">Contacto</a>
+    </nav>
+    <hr>
+    <div id="contenedor" style="background-color:#99FF66;">
+        <p>Pincha uno de los enlaces</p>
+    </div>
+</body>
+
+</html>

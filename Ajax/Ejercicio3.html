@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Ejercicio 3 - Cambio de Imagen</title>
+    <script type="text/javascript">
+        var object = false;
+        var imagenes = ['imagen1.html', 'imagen2.html'];
+        var indiceActual = 0;
+
+        if (window.XMLHttpRequest) {
+            object = new XMLHttpRequest();
+        } else if (window.ActiveXObject) {
+            object = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+
+        function cambiarImagen() {
+            if (object) {
+                indiceActual = (indiceActual + 1) % imagenes.length;
+                var imagenACargar = imagenes[indiceActual];
+
+                object.open("GET", imagenACargar);
+                object.onreadystatechange = function () {
+                    if (object.readyState == 4 &&
+                        object.status == 200) {
+                        document.getElementById('contenedorImagen').innerHTML = object.responseText;
+                    }
+                }
+                object.send(null);
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <h1>Ejercicio 3 - Cambio de Imagen Asíncrono</h1>
+    <form>
+        <input type="button" value="Cambio de imagen" onclick="cambiarImagen()">
+    </form>
+    <div id="contenedorImagen">
+        <img src="imagen1.jpeg" alt="Imagen 1">
+    </div>
+</body>
+
+</html>

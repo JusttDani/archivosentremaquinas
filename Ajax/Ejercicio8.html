@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Ejercicio 8 - Mostrar JSON</title>
+    <script type="text/javascript">
+        var object = false;
+
+        if (window.XMLHttpRequest) {
+            object = new XMLHttpRequest();
+        } else if (window.ActiveXObject) {
+            object = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+
+        function mostrarJSON(archivo, idDiv) {
+            if (object) {
+                var objeto = document.getElementById(idDiv);
+                object.open("GET", archivo);
+                object.onreadystatechange = function () {
+                    if (object.readyState == 4 &&
+                        object.status == 200) {
+                        var jsonData = JSON.parse(object.responseText);
+                        objeto.innerHTML = "<pre>" + JSON.stringify(jsonData, null, 2) + "</pre>";
+                    }
+                }
+                object.send(null);
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <h1>Ejercicio 8 - Mostrar Fichero JSON</h1>
+    <form>
+        <input type="button" value="Mostrar fichero JSON" onclick="mostrarJSON('datos.json','contenedor')">
+    </form>
+    <div id="contenedor" style="background-color:#99FF66;">
+        <p>Pulsa para mostrar el fichero JSON</p>
+    </div>
+</body>
+
+</html>
